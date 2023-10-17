@@ -17,15 +17,22 @@ class GameSprite(sprite.Sprite):
         win.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
-    def update(self):
+    def move1(self):
         keys = key.get_pressed()
-        if (keys[K_LEFT] or keys[K_a]) and self.rect.x > 5:
-            self.rect.x -= self.speed
-        if (keys[K_RIGHT] or keys[K_d]) and self.rect.x < 625:
-            self.rect.x += self.speed
+        if keys[K_UP] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys[K_DOWN] and self.rect.y < 335:
+            self.rect.y += self.speed
+    def move2(self):
+        keys = key.get_pressed()
+        if keys[K_w] and self.rect.y > 5:
+            self.rect.y -= self.speed
+        if keys[K_s] and self.rect.y < 335:
+            self.rect.y += self.speed
 
 pl1 = Player('синька.png', 20, 165, 30, 100, 3)
 pl2 = Player('зеленка.png', 20, 165, 650, 100, 3)
+ball = Player('мишин мяч.png', 50, 50, 200, 200, 3)
 
 run = True
 while run:
@@ -33,13 +40,13 @@ while run:
         if e.type == QUIT:
             run = False
     win.blit(back, (0,0))
-    pl1.update()
-    pl2.update()
+    pl1.move2()
+    pl2.move1()
+    ball.reset()
     pl1.reset()
     pl2.reset()
     display.update()
     clock.tick(60)
-
 
 
 
